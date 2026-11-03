@@ -8,7 +8,7 @@
 .motion-list {position:relative;isolation:isolate}
 .motion-list > .story,.motion-list > .pet-item,.motion-list > .pet-quote {position:relative;z-index:1;cursor:pointer}
 .motion-list > .story:focus-visible,.motion-list > .pet-item:focus-visible {outline:2px solid #915363;outline-offset:2px}
-.motion-list > .reading {background:#fff6f5}
+.motion-list > .reading {background:#fff6f5;grid-column:auto;grid-row:auto;width:auto}
 .list-ring {
   position:absolute;top:0;left:0;z-index:2;pointer-events:none;
   border:1px solid rgba(145,83,99,.5);border-radius:12px;opacity:0;

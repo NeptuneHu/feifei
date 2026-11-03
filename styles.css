@@ -1072,7 +1072,7 @@ dialog>.button {
   .intro p br {
     display:none
   }
-  .reading {
+  .layout > .reading {
     width:100%
   }
   .paper {
