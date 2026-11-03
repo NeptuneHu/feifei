@@ -204,7 +204,6 @@ function showQuote(name) {
   body.append(el('p', null, `更新时间：${quote.asOf}`));
   body.append(el('p', null, quote.session));
   body.append(el('p', null, quote.sourceName));
-  body.append(sourceLink(quote.sourceUrl, '打开交易所数据 ↗'));
   dialog(quote.name, body, '行情快照');
 }
 function quoteCard(label, sub, quote, pick, source) {
@@ -266,7 +265,6 @@ function showSector(id) {
   body.append(el('p', null, `更新时间：${quote.asOf}`));
   body.append(el('p', null, quote.session));
   body.append(el('p', null, quote.sourceName));
-  body.append(sourceLink(quote.sourceUrl, '打开交易所数据 ↗'));
   dialog(quote.label, body, '行情快照');
 }
 function renderSectors() {
