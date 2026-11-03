@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>肥肥财经 · 每天，把重点递给你</title>
+  <meta name="description" content="一份有出处的财经简报，和一只可以放在桌面上的肥肥猪。">
+  <link rel="stylesheet" href="styles.css"><script src="data/brief.js"></script><script src="app.js" defer></script>
+</head>
+<body>
+  <div id="website">
+    <header class="header"><a class="brand" href="#today"><span class="brand-mark">ff.</span><span>肥肥财经<small>FEIFEI DAILY</small></span></a>
+      <nav aria-label="主导航"><button class="nav-link active" data-view="today">今日简报</button><button class="nav-link" data-view="history">往期简报</button><a class="nav-link" href="#download">下载桌宠</a></nav>
+      <a class="button button-dark download" href="downloads/feifei-mac.zip">下载桌宠 <span>↗</span></a>
+    </header>
+    <main class="layout">
+      <aside class="intro"><div class="eyebrow"><span class="dot"></span> YOUR LITTLE MARKET BUDDY</div><h1>市场很热闹。<br>重点，<em>肥肥递给你。</em></h1><p>一份有出处的财经简报，<br>和一只陪你看市场的肥肥猪。</p><div class="intro-rule"></div><span class="intro-note">午间读重点 · 晚间看全貌</span><div class="edition">WEB <span>先在这里读</span></div></aside>
+      <section class="reading">
+        <div class="demo-note" id="brief-note" hidden><span>简报</span></div>
+        <div id="view-today" class="view"><div class="paper">
+          <div class="paper-top"><span class="date-label" id="paper-date">正在读取</span><span class="mini-label">A 股 · 国内 · 国际</span></div>
+          <div class="paper-heading"><div><div class="eyebrow">THE DAILY BRIEF</div><h2 id="brief-title">午间简报。</h2></div><span class="issue-mark" id="issue-mark">—<small>午间</small></span></div>
+          <div class="period-tabs" role="tablist" aria-label="简报期次"><button role="tab" aria-selected="true" data-period="noon" class="selected">午间简报 <small>12:00</small></button><button role="tab" aria-selected="false" data-period="evening">晚间简报 <small>20:30</small></button></div>
+          <div class="brief-meta"><span id="brief-context">正在读取</span><span id="brief-stamp">打开后不自动刷新</span></div>
+          <div class="indices waiting" aria-label="指数"><div><span>上证指数</span><strong>暂不可用</strong><b>等待交易所数据</b></div><div><span>深证成指</span><strong>暂不可用</strong><b>等待交易所数据</b></div><div><span>创业板指</span><strong>暂不可用</strong><b>等待交易所数据</b></div></div>
+          <p class="quote-note" id="quote-note">指数来自交易所，标的是更新时间，不是收盘价。</p>
+          <div class="section-label"><span>今天的消息</span><small id="story-count"></small></div><div id="stories"></div>
+          <footer class="paper-footer"><span>每条都能打开出处。</span><button class="text-button" id="source-policy">消息从哪来 ↗</button></footer>
+        </div><p class="reading-footnote">点开可以看原文。指数标的是更新时间。</p></div>
+        <div id="view-history" class="view" hidden><div class="paper subview"><div class="eyebrow">THE ARCHIVE</div><h2>留住每天的重点。</h2><p class="muted" id="archive-intro">这里是已经发出的简报。</p><div id="archive-list"></div><div class="archive-note">晚间简报在 20:30 更新。</div></div></div>
+        <div id="view-settings" class="view" hidden><div class="paper subview"><div class="eyebrow">MAKE IT YOURS</div><h2>按你的节奏，陪着你。</h2><p class="muted">设置保存在当前设备。</p><label class="setting-row"><span>简报更新提醒<small>有新一期时，肥肥轻轻提醒你</small></span><input type="checkbox" id="notify-toggle" data-pref="notify" role="switch"></label><label class="setting-row"><span>免打扰<small>保持安静，点击仍能查看简报</small></span><input type="checkbox" id="quiet-toggle" data-pref="quiet" role="switch"></label><label class="setting-row"><span>肥肥的大小<small>适合自己的桌面就好</small></span><input type="range" id="size-slider" data-pref="size" min="75" max="125" value="100" aria-label="肥肥的大小"></label><button class="button button-dark" id="reset-pet">恢复桌宠默认位置与大小</button><p class="muted setting-tip">这些开关保存在这台浏览器里。Mac 桌宠的设置在应用里单独保存。</p></div></div>
+      </section>
+    </main>
+    <section class="get-pet" id="download">
+      <div class="get-pet-copy">
+        <div class="eyebrow"><span class="dot"></span> TAKE FEIFEI HOME</div>
+        <h2>网页看完，把肥肥留在桌面上。</h2>
+        <p>下载 Mac 桌宠。它待在桌面角落，点一下就能看今天的重点。12:00 和 20:30，会轻轻提醒你。</p>
+        <a class="button button-dark download" href="downloads/feifei-mac.zip">下载 Mac 桌宠 <span>↗</span></a>
+      </div>
+      <aside class="companion"><div class="companion-top"><span class="eyebrow">MEET FEIFEI</span><span class="pill">你的桌面搭子</span></div><div class="speech" id="preview-speech">重点我整理好啦，点我看看？</div><button id="preview-pig" class="pig-button" aria-label="打开肥肥的摘要卡片"><img class="pig-image" src="assets/pig/good.png" alt="开心的肥肥猪" draggable="false"></button><h3>肥肥，今天也在。</h3><p class="muted">陪你了解市场，也陪你慢一点。</p><div class="mood-picker" aria-label="切换表情"><button data-mood="good" class="selected">行情好</button><button data-mood="bad">行情坏</button><button data-mood="uncertain">难以预料</button></div><p class="mood-note">手动表情预览 · 不代表市场预测</p><button class="button button-dark" id="enter-desktop">先在网页里看看 <span>↗</span></button><button class="text-button" id="demo-update">让肥肥递来这一期</button><button class="text-button" data-view="settings">桌宠设置</button><div class="companion-bottom"><span class="tiny-dot"></span> 点一下，今天的重点就来了</div></aside>
+    </section>
+    <footer class="site-footer"><span>FEIFEI DAILY — 少刷一点，多懂一点。</span><span>Mac 桌宠可下载</span></footer>
+  </div>
+  <section id="desktop" hidden aria-label="桌宠体验"><div class="desktop-bar"><span>FEIFEI / 桌宠体验</span><button class="text-button" id="leave-desktop">返回完整简报 ↗</button></div><div class="desktop-caption"><div class="eyebrow">A LITTLE COMPANY</div><h2>你的桌面，<br>多了一点陪伴。</h2><p>拖动肥肥找个舒服的位置。<br>点一下，今天的重点就来了。</p></div><div class="desktop-controls"><span>表情预览</span><button data-mood="good">行情好</button><button data-mood="bad">行情坏</button><button data-mood="uncertain">难以预料</button><span>· 表情手动切换</span></div></section>
+  <div id="pet-widget" hidden><section id="pet-card" class="pet-card" hidden aria-label="肥肥摘要卡片"><div class="pet-card-top"><span>肥肥递来的简报</span><button id="close-card" aria-label="关闭摘要卡片">×</button></div><div class="pet-tabs"><button data-period="noon" class="selected">午间</button><button data-period="evening">晚间</button></div><small class="pet-demo" id="pet-demo">午间简报</small><h3 id="pet-title"></h3><div id="pet-items"></div><button class="text-button" id="pet-settings-toggle" type="button">桌宠设置</button><div id="pet-settings" hidden><label class="setting-row"><span>更新提醒<small>12:00 与 20:30 各一次</small></span><input type="checkbox" data-pref="notify" role="switch"></label><label class="setting-row"><span>免打扰<small>不动画，点开仍能看</small></span><input type="checkbox" data-pref="quiet" role="switch"></label><label class="setting-row"><span>肥肥的大小</span><input type="range" data-pref="size" min="75" max="125" value="100" aria-label="肥肥的大小"></label><label class="setting-row native-only"><span>始终置顶<small>浮在其他窗口上面</small></span><input type="checkbox" data-pref="float" role="switch"></label><label class="setting-row native-only"><span>开机启动<small>登录后自动出现</small></span><input type="checkbox" id="pet-login" data-pref="login" role="switch"></label><button class="text-button" id="pet-reset" type="button">恢复位置与大小</button></div><button class="button button-dark" id="pet-full">打开完整简报 ↗</button></section><div id="pet-bubble" class="pet-bubble">点我看看今天的重点</div><button id="floating-pig" class="pig-button" aria-label="点击查看简报，拖动调整位置"><img class="pig-image" src="assets/pig/good.png" alt="肥肥财经桌宠" draggable="false"></button><div class="pet-caption" id="pet-caption">肥肥财经</div></div>
+  <dialog id="detail-dialog"><div class="dialog-top"><span id="dialog-label">信息说明</span><button id="close-dialog" aria-label="关闭详情">×</button></div><h2 id="dialog-title"></h2><div id="dialog-body"></div><button class="button button-dark" id="dialog-done">知道了</button></dialog><div id="toast" role="status" hidden></div>
+</body></html>

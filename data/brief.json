@@ -1,0 +1,102 @@
+{
+  "generatedAt": "2026-11-02T14:56:28+08:00",
+  "timezone": "Asia/Shanghai",
+  "status": "published",
+  "activeEdition": "daily",
+  "editions": {
+    "daily": {
+      "status": "published",
+      "title": "科技与财经简报",
+      "context": "每日一期",
+      "overview": "",
+      "stories": [
+        {
+          "tag": "国内数据",
+          "title": "2026年10月中国采购经理指数运行情况",
+          "text": "10月份，制造业采购经理指数（PMI）为49.3%，比上月下降0.8个百分点，制造业景气水平有所回落。",
+          "evidence": "10月份，制造业采购经理指数（PMI）为49.3%，比上月下降0.8个百分点，制造业景气水平有所回落。",
+          "publisher": "国家统计局",
+          "publishedAt": "2026-10-31 09:30（页面标注，未改时区）",
+          "url": "https://www.stats.gov.cn/sj/zxfb/202610/t20261031_1965718.html",
+          "checkedAt": "2026-11-02T14:56:28+08:00",
+          "status": "已与原文核对"
+        },
+        {
+          "tag": "国内数据",
+          "title": "2026年三季度金融机构贷款投向统计报告",
+          "text": "中国人民银行统计，2026年三季度末，金融机构人民币各项贷款余额283.44万亿元，同比增长4.8%，前三季度人民币贷款增加11.52万亿元。",
+          "evidence": "中国人民银行统计，2026年三季度末，金融机构人民币各项贷款余额283.44万亿元，同比增长4.8%，前三季度人民币贷款增加11.52万亿元。",
+          "publisher": "中国人民银行",
+          "publishedAt": "2026-10-28 17:00:33（页面标注）",
+          "url": "https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/2026102815121914211/index.html",
+          "checkedAt": "2026-11-02T14:56:28+08:00",
+          "status": "已与原文核对"
+        },
+        {
+          "tag": "政策",
+          "title": "中国人民银行设立债市非银大额赎回互换便利（中国人民银行公开市场业务公告〔2026〕第12号）",
+          "text": "为进一步落实好“构建科学稳健的货币政策体系和覆盖全面的宏观审慎管理体系”的要求，维护债券市场稳定，中国人民银行决定设立债市非银大额赎回互换便利（Bond Market NBFI Swap Facility，简称BNSF）。",
+          "evidence": "为进一步落实好“构建科学稳健的货币政策体系和覆盖全面的宏观审慎管理体系”的要求，维护债券市场稳定，中国人民银行决定设立债市非银大额赎回互换便利（Bond Market NBFI Swap Facility，简称BNSF）。",
+          "publisher": "中国人民银行",
+          "publishedAt": "2026-10-26 17:00:11（页面标注）",
+          "url": "https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/2026102616264823100/index.html",
+          "checkedAt": "2026-11-02T14:56:28+08:00",
+          "status": "已与原文核对"
+        },
+        {
+          "tag": "国际",
+          "title": "Federal Reserve issues FOMC statement",
+          "text": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.",
+          "evidence": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.",
+          "publisher": "Board of Governors of the Federal Reserve System",
+          "publishedAt": "2026-10-28 18:00 UTC",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+          "checkedAt": "2026-11-02T14:56:28+08:00",
+          "status": "已与原文核对"
+        }
+      ]
+    }
+  },
+  "quotes": [
+    {
+      "name": "上证指数",
+      "code": "000001",
+      "last": "3631.7778",
+      "prevClose": "3599.0166",
+      "change": "32.7612",
+      "changePercent": "0.91",
+      "asOf": "2026-11-02 14:56:32",
+      "session": "交易时段快照",
+      "sourceName": "上海证券交易所行情接口",
+      "sourceUrl": "https://yunhq.sse.com.cn:32042/v1/sh1/snap/000001",
+      "note": "现价减前收等于涨跌额；涨跌额除以前收，与接口涨跌幅相差不超过 0.02 个百分点。"
+    },
+    {
+      "name": "深证成指",
+      "code": "399001",
+      "last": "11009.16",
+      "prevClose": "10833.78",
+      "change": "175.38",
+      "changePercent": "1.62",
+      "asOf": "2026-11-02 14:56:30",
+      "session": "交易时段快照",
+      "sourceName": "深圳证券交易所行情接口",
+      "sourceUrl": "https://www.szse.cn/api/market/ssjjhq/getTimeData?marketId=1&code=399001",
+      "note": "现价减前收等于涨跌额；涨跌额除以前收，与接口涨跌幅相差不超过 0.02 个百分点。 深交所字段 close 是前收，now 是现价。"
+    },
+    {
+      "name": "创业板指",
+      "code": "399006",
+      "last": "2458.42",
+      "prevClose": "2413.63",
+      "change": "44.79",
+      "changePercent": "1.86",
+      "asOf": "2026-11-02 14:56:35",
+      "session": "交易时段快照",
+      "sourceName": "深圳证券交易所行情接口",
+      "sourceUrl": "https://www.szse.cn/api/market/ssjjhq/getTimeData?marketId=1&code=399006",
+      "note": "现价减前收等于涨跌额；涨跌额除以前收，与接口涨跌幅相差不超过 0.02 个百分点。 深交所字段 close 是前收，now 是现价。"
+    }
+  ],
+  "date": "2026-11-02"
+}

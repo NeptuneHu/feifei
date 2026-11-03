@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>肥肥财经 · 网页版</title>
+  <meta name="description" content="肥肥财经。指数来自交易所，标注更新时间。">
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v2.css?v=13"><link rel="stylesheet" href="motion.css?v=5"><script src="data/brief.js"></script><script src="data/sectors.js"></script><script src="motion.js?v=4" defer></script><script src="app.js?v=13" defer></script>
+</head>
+<body>
+  <div id="website" class="shell">
+    <aside class="side">
+      <a class="brand" href="index.html" aria-label="返回肥肥财经介绍页"><span class="brand-mark">FF</span><span>肥肥财经<small>指数</small></span></a>
+      <nav aria-label="主导航"><button class="nav-link active" type="button" data-view="today">今日</button><button class="nav-link" type="button" data-view="history">往期</button><button class="nav-link" type="button" data-view="settings">设置</button></nav>
+      <a class="side-download" href="index.html">关于肥肥</a>
+    </aside>
+    <div class="stage">
+      <div id="view-today" class="view dash">
+        <div class="dash-top"><p id="dash-line" class="dash-line">指数正在读取。</p><p class="quote-note" id="quote-note">指数来自交易所，标注更新时间。</p><span id="quote-live" hidden>等待交易所</span><span id="paper-date" hidden>今日</span></div>
+        <div class="index-row" role="radiogroup" aria-label="选择指数"><div id="index-board"></div><div id="sector-quotes"></div></div>
+        <section class="panel brief-panel" aria-label="简报">
+          <div class="paper-heading"><div><h2 id="brief-title">财经快讯</h2></div><span class="issue-mark" id="issue-mark">—<small>条</small></span><span id="story-count" hidden></span></div>
+          <div class="brief-meta"><span id="brief-context">正在读取</span><span id="brief-stamp"></span></div>
+          <div id="stories"></div>
+          <footer class="paper-footer"><span>每条消息附原文。</span><button class="text-button" id="source-policy" type="button">来源说明</button></footer>
+        </section>
+      </div>
+        <div id="view-history" class="view" hidden><div class="paper subview"><h2>往期简报</h2><p class="muted" id="archive-intro">已发布期次。</p><div id="archive-list"></div><div class="archive-note">每天一期科技与财经简报。</div></div></div>
+        <div id="view-settings" class="view" hidden><div class="paper subview"><h2>设置</h2><label class="setting-row"><span>简报提醒<small data-clock-label>每天一次</small></span><input type="checkbox" id="notify-toggle" data-pref="notify" role="switch"></label><label class="setting-row"><span>每日提醒时间</span><input type="time" data-clock="dailyAt" value="14:00"></label><label class="setting-row"><span>免打扰<small>关闭动画</small></span><input type="checkbox" id="quiet-toggle" data-pref="quiet" role="switch"></label><section class="settings-pet-preview" id="settings-pet-preview" aria-label="桌宠形态预览"><div class="settings-preview-head"><span>桌宠预览</span><output id="preview-size" for="size-slider">100%</output></div><div class="settings-pet-stage"><div class="settings-preview-pig"><img class="pig-image" src="assets/pig/good.png?v=original-1" alt="肥肥桌宠尺寸预览" draggable="false"></div></div><p>拖动下方滑杆，预览尺寸变化。</p></section><label class="setting-row"><span>尺寸<small>75–125</small></span><input type="range" id="size-slider" data-pref="size" min="75" max="125" value="100" aria-label="肥肥的大小"></label><section class="sector-block" aria-label="关注板块"><div class="sector-head"><span>关注板块</span><small>选中的指数显示在首页</small></div><div class="sector-picks" id="sector-picks" role="group" aria-label="选择关注板块"></div><p class="sector-empty" id="sector-empty" hidden>板块行情暂不可用。</p></section><button class="button button-dark" id="reset-pet" type="button">恢复桌宠默认位置与大小</button><button class="text-button" id="enter-desktop" type="button">桌面预览</button><p class="muted setting-tip">网页设置保存在浏览器。桌宠设置保存在应用内。</p></div></div>
+    </div>
+  </div>
+  <section id="desktop" hidden aria-label="桌宠体验"><div class="desktop-bar"><span>肥肥财经 / 桌面预览</span><button class="text-button" id="leave-desktop">返回简报</button></div><div class="desktop-caption"><div class="eyebrow">DESK</div><h2>桌面预览</h2><p>拖动调整位置。点击打开简报。</p></div></section>
+  <div id="pet-widget" hidden><section id="pet-card" class="pet-card" hidden aria-label="肥肥摘要卡片"><div class="pet-card-top"><span>肥肥</span><button id="close-card" aria-label="关闭摘要卡片">×</button></div><div class="pet-scroll"><p class="pet-kicker">指数</p><p id="pet-line" class="pet-line"></p><div id="pet-quotes" class="pet-quotes" aria-label="当前指数"></div><p class="pet-kicker">简报</p><small class="pet-demo" id="pet-demo">科技与财经简报</small><h3 id="pet-title"></h3><div id="pet-items"></div></div><button class="text-button" id="pet-settings-toggle" type="button">桌宠设置</button><div id="pet-settings" hidden><label class="setting-row"><span>更新提醒<small data-clock-label>每天一次</small></span><input type="checkbox" data-pref="notify" role="switch"></label><label class="setting-row"><span>每日提醒时间</span><input type="time" data-clock="dailyAt" value="14:00"></label><label class="setting-row"><span>免打扰<small>关闭动画</small></span><input type="checkbox" data-pref="quiet" role="switch"></label><label class="setting-row"><span>尺寸</span><input type="range" data-pref="size" min="75" max="125" value="100" aria-label="肥肥的大小"></label><label class="setting-row native-only"><span>始终置顶<small>浮在其他窗口上面</small></span><input type="checkbox" data-pref="float" role="switch"></label><label class="setting-row native-only"><span>开机启动<small>登录后自动出现</small></span><input type="checkbox" id="pet-login" data-pref="login" role="switch"></label><button class="text-button" id="pet-reset" type="button">恢复位置与大小</button></div><button class="button button-dark" id="pet-full">打开简报</button></section><div id="pet-bubble" class="pet-bubble">点击查看简报</div><button id="floating-pig" class="pig-button" aria-label="点击查看简报，拖动调整位置"><img class="pig-image" src="assets/pig/good.png?v=original-1" alt="肥肥财经桌宠" draggable="false"></button><div class="pet-caption" id="pet-caption">肥肥财经</div></div>
+  <dialog id="detail-dialog"><div class="dialog-top"><span id="dialog-label">信息说明</span><button id="close-dialog" aria-label="关闭详情">×</button></div><h2 id="dialog-title"></h2><div id="dialog-body"></div><button class="button button-dark" id="dialog-done">知道了</button></dialog><div id="toast" role="status" hidden></div>
+</body></html>

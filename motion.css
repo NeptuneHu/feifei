@@ -1,0 +1,61 @@
+/* React Bits spring and Dock gestures, using the existing blush surfaces. */
+.dash {height:auto;min-height:calc(100vh - 40px);grid-template-rows:auto auto minmax(420px,1fr)}
+.brief-panel {max-height:calc(100vh - 280px);min-height:420px;scrollbar-width:thin;scroll-padding:12px}
+.brief-photo {display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border-radius:10px;margin:10px 0}
+.pet-item .brief-photo {max-height:160px}
+.brief-panel .brief-group {grid-column:1 / -1;background:transparent;border:0;padding:8px 2px}
+.brief-panel .brief-group h3 {font-size:17px}
+.motion-list {position:relative;isolation:isolate}
+.motion-list > .story,.motion-list > .pet-item,.motion-list > .pet-quote {position:relative;z-index:1;cursor:pointer}
+.motion-list > .story:focus-visible,.motion-list > .pet-item:focus-visible {outline:2px solid #915363;outline-offset:2px}
+.motion-list > .reading {background:#fff6f5}
+.list-ring {
+  position:absolute;top:0;left:0;z-index:2;pointer-events:none;
+  border:1px solid rgba(145,83,99,.5);border-radius:12px;opacity:0;
+  box-shadow:0 4px 14px rgba(145,83,99,.07),inset 0 1px 0 rgba(255,255,255,.9);
+  transition:transform 560ms cubic-bezier(.34,1.4,.64,1),width 560ms cubic-bezier(.34,1.4,.64,1),height 560ms cubic-bezier(.34,1.4,.64,1),opacity 160ms ease
+}
+.index-row {gap:14px;padding:18px 30px 20px;margin:-12px -10px -8px;scroll-padding-inline:30px}
+.index-card {transform-origin:center;transition:background-color 200ms ease,box-shadow 180ms ease;flex-basis:220px;min-width:220px;background:#fff9f7;border:0}
+.index-card.focus {flex-basis:220px;min-width:220px;background:#fff6f5;box-shadow:0 10px 22px rgba(90,40,52,.08)}
+.index-card.focus .index-hit strong {font-size:30px}
+.index-hit {transform:none;transition:none;touch-action:manipulation}
+.index-card.focus .index-hit {outline:none}
+.index-card:focus-within {z-index:2}
+.index-card .index-hit:focus-visible {outline:2px solid #495970;outline-offset:3px}
+.pet-quotes .list-ring {border:0;background:rgba(233,180,206,.25);box-shadow:none;z-index:0;border-radius:10px}
+.pet-quotes > .pet-quote.reading {background:rgba(233,180,206,.15)}
+.pet-quote:focus-visible {outline:2px solid #495970;outline-offset:2px}
+.pig-image {animation:none;filter:none}
+.settings-pet-preview {margin-top:16px;padding:12px;border-radius:16px;background:rgba(255,246,245,.8);border:1px solid rgba(145,83,99,.12)}
+.settings-preview-head {display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600}
+#preview-size {font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px}
+.settings-pet-stage {height:230px;display:grid;place-items:center;overflow:hidden}
+.settings-preview-pig {width:calc(min(200px,46vw) * var(--pet-preview-scale,1));height:calc(min(160px,36.8vw) * var(--pet-preview-scale,1))}
+.settings-pet-preview p {margin:0;font-size:13px;color:var(--muted)}
+button,a.button,.side-download,input[role="switch"] {transform-origin:center;touch-action:manipulation}
+button:not(.index-hit):not(#floating-pig),a.button,.side-download {transition:scale 320ms cubic-bezier(.34,1.4,.64,1),background-color 180ms ease}
+@media (hover:hover) and (pointer:fine) {
+  button:not(.index-hit):not(#floating-pig):not(:disabled):hover,a.button:hover,.side-download:hover {scale:1.025}
+}
+body.quiet button,body.quiet a.button,body.quiet .side-download {transition:none;scale:1}
+@media (prefers-reduced-motion:reduce) {
+  button,a.button,.side-download {transition:none!important;scale:1!important}
+}
+@media (hover:hover) and (pointer:fine) {
+  .index-card:hover {z-index:2;box-shadow:0 14px 28px rgba(90,40,52,.12)}
+}
+@media (max-width:760px) {
+  .index-card {flex-basis:168px;min-width:168px}
+  .index-card.focus {flex-basis:168px;min-width:168px}
+}
+@media (max-width:980px) {
+  .dash {grid-template-rows:auto}
+  .brief-panel {max-height:520px}
+}
+body.quiet .list-ring,body.quiet .index-hit,body.quiet .index-card {transition:none}
+body.quiet .index-hit {transform:none!important}
+@media (prefers-reduced-motion:reduce) {
+  .list-ring,.index-hit,.index-card {transition:none!important;animation:none!important}
+  .index-hit {transform:none!important}
+}
