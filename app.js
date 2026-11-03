@@ -462,13 +462,16 @@ function flashItems(list) {
   }
   return items;
 }
+function useLocalFlash() {
+  return location.protocol === 'file:' || location.hostname === '127.0.0.1' || location.hostname === 'localhost';
+}
 async function fetchEastMoney(today) {
-  const res = await fetch(EASTMONEY_FLASH, {cache: 'no-store'});
+  const res = await fetch(useLocalFlash() ? EASTMONEY_FLASH : '/api/brief', {cache: 'no-store'});
   if (!res.ok) throw new Error(String(res.status));
   const data = await res.json();
-  const items = flashItems(data?.data?.fastNewsList || []);
+  const items = Array.isArray(data.items) ? data.items : flashItems(data?.data?.fastNewsList || []);
   if (!items.length) throw new Error('empty');
-  const saved = {ok: true, fetched_on: today, as_of: new Date().toISOString(), from_cache: false, items};
+  const saved = {ok: true, fetched_on: data.fetched_on || today, as_of: data.as_of || new Date().toISOString(), from_cache: false, items};
   writeFlashCache(saved);
   return saved;
 }
