@@ -9,3 +9,5 @@ previews/
 .wrangler/
 data/cache/
 *.log
+__pycache__/
+~$*

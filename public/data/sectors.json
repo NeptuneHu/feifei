@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-11-02T15:58:23+08:00",
+  "timezone": "Asia/Shanghai",
+  "sectors": [
+    {
+      "id": "ai",
+      "label": "人工智能",
+      "name": "人工智能",
+      "code": "931071",
+      "last": "2051.3141",
+      "prevClose": "2007.3749",
+      "change": "43.9392",
+      "changePercent": "2.19",
+      "asOf": "2026-11-02 15:58:08",
+      "session": "15:00 后快照",
+      "sourceName": "上海证券交易所行情接口",
+      "sourceUrl": "https://yunhq.sse.com.cn:32042/v1/csi/snap/931071",
+      "note": "现价减前收等于涨跌额；涨跌额除以前收，与接口涨跌幅相差不超过 0.02 个百分点。"
+    },
+    {
+      "id": "compute",
+      "label": "算力",
+      "name": "国证算力",
+      "code": "399363",
+      "last": "8296.0724",
+      "prevClose": "8247.8383",
+      "change": "48.2341",
+      "changePercent": "0.58",
+      "asOf": "2026-11-02 15:58:24",
+      "session": "15:00 后快照",
+      "sourceName": "上海证券交易所行情接口",
+      "sourceUrl": "https://yunhq.sse.com.cn:32042/v1/sz1/snap/399363",
+      "note": "现价减前收等于涨跌额；涨跌额除以前收，与接口涨跌幅相差不超过 0.02 个百分点。"
+    },
+    {
+      "id": "liquor",
+      "label": "白酒",
+      "name": "中证白酒",
+      "code": "399997",
+      "last": "6908.0605",
+      "prevClose": "6672.3019",
+      "change": "235.7586",
+      "changePercent": "3.53",
+      "asOf": "2026-11-02 15:58:24",
+      "session": "15:00 后快照",
+      "sourceName": "上海证券交易所行情接口",
+      "sourceUrl": "https://yunhq.sse.com.cn:32042/v1/sz1/snap/399997",
+      "note": "现价减前收等于涨跌额；涨跌额除以前收，与接口涨跌幅相差不超过 0.02 个百分点。"
+    },
+    {
+      "id": "gold",
+      "label": "黄金",
+      "name": "SSH黄金股票",
+      "code": "931238",
+      "last": "2448.1484",
+      "prevClose": "2506.8664",
+      "change": "-58.7180",
+      "changePercent": "-2.34",
+      "asOf": "2026-11-02 15:58:08",
+      "session": "15:00 后快照",
+      "sourceName": "上海证券交易所行情接口",
+      "sourceUrl": "https://yunhq.sse.com.cn:32042/v1/csi/snap/931238",
+      "note": "现价减前收等于涨跌额；涨跌额除以前收，与接口涨跌幅相差不超过 0.02 个百分点。"
+    },
+    {
+      "id": "chip",
+      "label": "芯片",
+      "name": "国证芯片",
+      "code": "980017",
+      "last": "11818.5496",
+      "prevClose": "11540.1666",
+      "change": "278.3830",
+      "changePercent": "2.41",
+      "asOf": "2026-11-02 15:58:24",
+      "session": "15:00 后快照",
+      "sourceName": "上海证券交易所行情接口",
+      "sourceUrl": "https://yunhq.sse.com.cn:32042/v1/sz1/snap/980017",
+      "note": "现价减前收等于涨跌额；涨跌额除以前收，与接口涨跌幅相差不超过 0.02 个百分点。"
+    }
+  ]
+}
