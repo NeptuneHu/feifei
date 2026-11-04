@@ -4,7 +4,7 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>肥肥财经 · 网页版</title>
   <meta name="description" content="肥肥财经。指数来自交易所，标注更新时间。">
-  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v2.css?v=14"><link rel="stylesheet" href="motion.css?v=6"><script src="data/brief.js"></script><script src="data/sectors.js"></script><script src="motion.js?v=4" defer></script><script src="app.js?v=15" defer></script>
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v2.css?v=14"><link rel="stylesheet" href="motion.css?v=6"><script src="data/brief.js"></script><script src="data/sectors.js"></script><script src="motion.js?v=4" defer></script><script src="app.js?v=16" defer></script>
 </head>
 <body>
   <div id="website" class="shell">
@@ -15,7 +15,7 @@
     </aside>
     <div class="stage">
       <div id="view-today" class="view dash">
-        <div class="dash-top"><p id="dash-line" class="dash-line">指数正在读取。</p><p class="quote-note" id="quote-note">指数来自交易所，标注更新时间。</p><span id="quote-live" hidden>等待交易所</span><span id="paper-date" hidden>今日</span></div>
+        <div class="dash-top"><p id="dash-line" class="dash-line">指数正在读取。</p><p class="quote-note" id="quote-note">指数来自交易所，标注更新时间。</p><button class="text-button" id="refresh-quotes" type="button">刷新行情</button><span id="quote-live" hidden>等待交易所</span><span id="paper-date" hidden>今日</span></div>
         <div class="index-row" role="radiogroup" aria-label="选择指数"><div id="index-board"></div><div id="sector-quotes"></div></div>
         <section class="panel brief-panel" aria-label="简报">
           <div class="paper-heading"><div><h2 id="brief-title">财经快讯</h2></div><span class="issue-mark" id="issue-mark">—<small>条</small></span><span id="story-count" hidden></span></div>

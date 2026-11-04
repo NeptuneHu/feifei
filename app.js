@@ -202,7 +202,7 @@ function showQuote(name) {
   body.append(el('p', null, `${quote.name}（${quote.code || ''}）`));
   body.append(el('p', null, `现价 ${quote.last}，前收 ${quote.prevClose}，涨跌额 ${quote.change}，涨跌幅 ${quote.changePercent}%。`));
   body.append(el('p', null, `更新时间：${quote.asOf}`));
-  body.append(el('p', null, quote.session));
+  body.append(el('p', null, sessionLabel(quote.asOf)));
   body.append(el('p', null, quote.sourceName));
   dialog(quote.name, body, '行情快照');
 }
@@ -224,6 +224,7 @@ function quoteCard(label, sub, quote, pick, source) {
     const tone = change > 0 ? 'up' : change < 0 ? 'down' : 'flat';
     hit.append(el('strong', tone, String(quote.last)));
     hit.append(el('b', tone, `${sign}${quote.change}  ${sign}${quote.changePercent}%`));
+    hit.append(el('small', 'quote-asof', `${quote.asOf} · ${sessionLabel(quote.asOf)}`));
 
   }
   cell.append(hit);
@@ -263,7 +264,7 @@ function showSector(id) {
   body.append(el('p', null, title));
   body.append(el('p', null, `现价 ${quote.last}，前收 ${quote.prevClose}，涨跌额 ${quote.change}，涨跌幅 ${quote.changePercent}%。`));
   body.append(el('p', null, `更新时间：${quote.asOf}`));
-  body.append(el('p', null, quote.session));
+  body.append(el('p', null, sessionLabel(quote.asOf)));
   body.append(el('p', null, quote.sourceName));
   dialog(quote.label, body, '行情快照');
 }
@@ -574,10 +575,9 @@ function marketSentence() {
   else if (rows.length >= 2 && pcts.every((value) => value < -0.05)) shape = '主要指数都在跌';
   else if (rows.length >= 2 && pcts.every((value) => Math.abs(value) <= 0.05)) shape = '主要指数基本持平';
   else if (rows.length >= 2) shape = '涨跌不一';
-  const stamp = rows.map((quote) => quote.asOf).sort().at(-1) || '';
-  const clock = stamp.slice(11, 16);
-  const session = rows.find((quote) => quote.asOf === stamp)?.session || rows[0].session;
-  const head = clock ? `${clock} ${session}` : session;
+  // 用最早的一笔说明整组行情的覆盖时间，避免一只新数据掩盖其余旧数据。
+  const stamp = rows.map((quote) => quote.asOf).sort()[0] || '';
+  const head = `${stamp} ${sessionLabel(stamp)}`;
   const body = shape ? `${parts.join('，')}，${shape}` : parts.join('，');
   return `${head}：${body}。`;
 }
@@ -725,6 +725,7 @@ function view(value) {
   $$('.view').forEach((node) => { node.hidden = node.id !== `view-${value}`; });
   $$('[data-view]').forEach((node) => node.classList.toggle('active', node.dataset.view === value));
   window.scrollTo(0, 0);
+  if (value === 'today') refreshLive();
 }
 function markSeen() {
   const id = dueId();
@@ -832,6 +833,7 @@ document.addEventListener('click', (e) => {
   if (sectorLink) view('today');
   const btn = e.target.closest('button');
   if (!btn) return;
+  if (btn.id === 'refresh-quotes') refreshLive();
   if (btn.dataset.mood) setMood(btn.dataset.mood);
   if (btn.dataset.period) { period = btn.dataset.period; render(); }
   if (btn.dataset.view) view(btn.dataset.view);
@@ -1036,16 +1038,30 @@ function wantedFeeds() {
   return rows;
 }
 function paintLive() {
+  const rows = QUOTE_NAMES.map((name) => shownIndex(name)).filter(validQuote);
+  const asOf = rows.map((quote) => quote.asOf).sort()[0];
   const node = $('#quote-live');
-  if (!node) return;
-  const stamps = QUOTE_NAMES.map((name) => shownIndex(name)).filter(validQuote).map((quote) => quote.asOf);
-  if (!stamps.length) {
-    node.textContent = '等待交易所';
-    return;
+  if (node) node.textContent = asOf ? `${asOf} · ${sessionLabel(asOf)}` : '等待交易所';
+  const note = $('#quote-note');
+  const refresh = $('#refresh-quotes');
+  if (refresh) {
+    refresh.disabled = liveLoading;
+    refresh.textContent = liveLoading ? '正在刷新…' : '刷新行情';
   }
-  const asOf = stamps.sort().at(-1);
-  const quote = QUOTE_NAMES.map((name) => shownIndex(name)).find((item) => item && item.asOf === asOf);
-  node.textContent = `${asOf.slice(11)} · ${quote ? quote.session : ''}`.trim();
+  if (!note) return;
+  if (liveLoading) {
+    note.textContent = '正在读取最新行情，当前显示已有快照。';
+  } else if (liveFailures) {
+    note.textContent = '部分行情未能更新，保留上次快照；稍后自动重试，也可点击刷新行情。';
+  } else if (liveCheckedAt) {
+    const checked = new Intl.DateTimeFormat('zh-CN', {
+      timeZone: 'Asia/Shanghai', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'
+    }).format(liveCheckedAt);
+    const historical = rows.some(quote => sessionLabel(quote.asOf) === '历史快照');
+    note.textContent = `上次检查 ${checked}（北京时间） · ${historical ? '交易所尚未提供今日快照，显示历史数据。' : '行情时间以交易所返回为准。'}`;
+  } else {
+    note.textContent = '尚未取得最新行情，当前为保存的快照。';
+  }
 }
 function applyMarketMood() {
   const rows = QUOTE_NAMES.map((name) => shownIndex(name)).filter(validQuote);
@@ -1076,11 +1092,19 @@ function applyMarketMood() {
 }
 function takeSnap(job, text) {
   const quote = parseSnap(text, job.name, job.channel, job.code);
-  if (!quote) return;
+  if (!quote) return false;
+  const previous = job.kind === 'sector' ? sectors.find(item => item.id === job.id) : shownIndex(job.name);
+  // 慢请求、上游缓存不能覆盖更新的一笔。
+  if (previous && previous.asOf > quote.asOf) return false;
   if (job.kind === 'sector') upsertSector(job.id, quote);
   else upsertIndex(quote);
+  return true;
 }
 let liveWait = null;
+let liveLoading = false;
+let liveFailures = 0;
+let liveCheckedAt = null;
+let liveRequest = null;
 function finishLive() {
   renderQuotes();
   renderSectors();
@@ -1091,13 +1115,26 @@ function finishLive() {
   if (liveWait) { liveWait(); liveWait = null; }
 }
 async function pullHttp() {
-  await Promise.all(wantedFeeds().map(async (job) => {
+  liveLoading = true;
+  paintLive();
+  const results = await Promise.all(wantedFeeds().map(async (job) => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
     try {
-      const res = await fetch(`/api/snap?channel=${job.channel}&code=${job.code}`, {cache: 'no-store'});
-      if (!res.ok) return;
-      takeSnap(job, await res.text());
-    } catch {}
+      const res = await fetch(`/api/snap?channel=${job.channel}&code=${job.code}&_=${Date.now()}`, {
+        cache: 'no-store', signal: controller.signal
+      });
+      if (!res.ok) return false;
+      return takeSnap(job, await res.text());
+    } catch {
+      return false;
+    } finally {
+      clearTimeout(timeout);
+    }
   }));
+  liveFailures = results.filter(ok => !ok).length;
+  liveCheckedAt = new Date();
+  liveLoading = false;
   finishLive();
 }
 window.onLiveQuotes = (rows) => {
@@ -1116,7 +1153,8 @@ function refreshLive() {
     setTimeout(() => { if (liveWait) finishLive(); }, 8000);
     return;
   }
-  pullHttp();
+  if (!liveRequest) liveRequest = pullHttp().finally(() => { liveRequest = null; });
+  return liveRequest;
 }
 function pollDelay() {
   const bj = beijingParts();
@@ -1124,10 +1162,19 @@ function pollDelay() {
   const trading = bj.weekday >= 1 && bj.weekday <= 5 && minutes >= 9 * 60 + 15 && minutes <= 15 * 60 + 5;
   return trading ? 15000 : 60000;
 }
-function scheduleLive() {
-  refreshLive();
+async function scheduleLive() {
+  if (!document.hidden) await refreshLive();
   setTimeout(scheduleLive, pollDelay());
 }
+// 后台标签页的计时器会被浏览器延后，恢复可见时主动刷新。
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) refreshLive();
+});
+window.addEventListener('pageshow', () => refreshLive());
+window.addEventListener('online', () => refreshLive());
+window.addEventListener('focus', () => {
+  if (!document.hidden && (!liveCheckedAt || Date.now() - liveCheckedAt.getTime() > 5000)) refreshLive();
+});
 
 if (location.protocol === 'file:') $$('.download').forEach((link) => { link.hidden = true; });
 if (petMode) {

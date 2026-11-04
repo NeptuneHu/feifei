@@ -33,7 +33,13 @@ function shanghaiToday() {
 async function snap(url) {
   const target = ALLOW[`${url.searchParams.get("channel")}:${url.searchParams.get("code")}`];
   if (!target) return new Response("no", {status: 404});
-  const upstream = await fetch(target, {headers: {"user-agent": "Mozilla/5.0 (compatible; FeifeiBrief/0.3)"}});
+  const upstreamUrl = new URL(target);
+  upstreamUrl.searchParams.set('_', Date.now().toString());
+  const upstream = await fetch(upstreamUrl.toString(), {
+    headers: {"user-agent": "Mozilla/5.0 (compatible; FeifeiBrief/0.3)", "cache-control": "no-cache"},
+    cf: {cacheTtl: 0, cacheEverything: false},
+    signal: AbortSignal.timeout(6500)
+  });
   if (!upstream.ok) return new Response("upstream", {status: 502});
   return new Response(await upstream.text(), {
     headers: {"content-type": "application/json; charset=utf-8", "cache-control": "no-store"}
@@ -77,7 +83,7 @@ async function brief() {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname === "/api/snap") return snap(url);
+    if (url.pathname === "/api/snap") return snap(url).catch(() => json({error: "行情暂不可用"}, 502));
     if (url.pathname === "/api/brief") return brief();
     return env.ASSETS.fetch(request);
   }

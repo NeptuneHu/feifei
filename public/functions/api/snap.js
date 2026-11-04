@@ -13,7 +13,13 @@ export async function onRequestGet(context) {
   const url = new URL(context.request.url);
   const target = ALLOW[`${url.searchParams.get("channel")}:${url.searchParams.get("code")}`];
   if (!target) return new Response("no", {status: 404});
-  const upstream = await fetch(target, {headers: {"user-agent": "Mozilla/5.0 (compatible; FeifeiBrief/0.3)"}});
+  const upstreamUrl = new URL(target);
+  upstreamUrl.searchParams.set('_', Date.now().toString());
+  const upstream = await fetch(upstreamUrl.toString(), {
+    headers: {"user-agent": "Mozilla/5.0 (compatible; FeifeiBrief/0.3)", "cache-control": "no-cache"},
+    cf: {cacheTtl: 0, cacheEverything: false},
+    signal: AbortSignal.timeout(6500)
+  });
   if (!upstream.ok) return new Response("upstream", {status: 502});
   return new Response(await upstream.text(), {
     headers: {"content-type": "application/json; charset=utf-8", "cache-control": "no-store"}
